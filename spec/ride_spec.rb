@@ -17,13 +17,18 @@ RSpec.describe Ride do
     expect(@ride1.distance).to eq(10.7)
     expect(@ride1.terrain).to eq(:hills)
     expect(@ride1.loop?).to be false
+  end
+  
+  describe '#loop?' do
+  it 'knows if the ride is a loop' do
     expect(@ride1.total_distance).to eq(21.4)
+    expect(@ride1.loop?).to be false
+    expect(@ride2.loop?).to be true
+    expect(@ride2.total_distance).to eq(14.9)
+    end
   end
 end
 
 
 
 
-# expect(@ride2.loop?).to be true
-
-# expect(ride2.total_distance).to eq(14.9)
