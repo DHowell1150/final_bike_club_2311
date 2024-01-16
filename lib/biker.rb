@@ -7,7 +7,7 @@ class Biker
   def initialize(name, max_distance)
     @name = name
     @max_distance = max_distance
-    @rides = {}
+    @rides = Hash.new
     @acceptable_terrain = []
   end
 
@@ -15,21 +15,20 @@ class Biker
     @acceptable_terrain << terrain
   end
   
-  def log_ride(rider, time)
-    @rides[rider] ||= []
-    @rides[rider] << time
+  def log_ride(ride, time)
+    if @acceptable_terrain.include?(ride.terrain) && ride.total_distance <= @max_distance
+      
+      @rides[ride] ||= []
+      @rides[ride] << time
+    end
   end
 
   def personal_record(ride)
     pr = nil
     @rides[ride].each do |time|
-      pr = time if pr.nil? || time < pr
+      pr = time if pr.nil? || (time < pr || nil)
     end
-    # @rides.each do |hash_ride, times|
-    #   times.max_by do |time|
-    #   pr = time
-    #   end
-    # end
     pr
   end
+
 end

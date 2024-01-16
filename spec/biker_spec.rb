@@ -34,6 +34,9 @@ RSpec.describe Biker do
 
   describe 'log_ride' do
     it 'logs the rides of each biker in a hash with biker as key and rides in an array.' do
+      @biker.learn_terrain!(:gravel)
+      @biker.learn_terrain!(:hills)
+
       @biker.log_ride(@ride1, 92.5)
       @biker.log_ride(@ride1, 91.1)
       @biker.log_ride(@ride2, 60.9)
@@ -45,7 +48,9 @@ RSpec.describe Biker do
 
   describe '#personal_record' do
     it 'can find fastest time from rides' do
-
+      @biker.learn_terrain!(:gravel)
+      @biker.learn_terrain!(:hills)
+      
       @biker.log_ride(@ride1, 92.5)
       @biker.log_ride(@ride1, 91.1)
       @biker.log_ride(@ride2, 60.9)
@@ -53,23 +58,24 @@ RSpec.describe Biker do
       
       expect(@biker.personal_record(@ride1)).to eq(91.1)
       expect(@biker.personal_record(@ride2)).to eq(60.9)
+
+      @biker2.log_ride(@ride1, 97.0) #biker2 doesn't know this terrain yet
+      @biker2.log_ride(@ride2, 67.0) #biker2 doesn't know this terrain yet
+      expect(@biker2.rides).to eq({})
+  
+  
+      # @biker2.learn_terrain!(:gravel)
+      # @biker2.learn_terrain!(:hills)
+      # @biker2.log_ride(@ride1, 95.0) # biker2 can't bike this distance
+      # @biker2.log_ride(@ride2, 65.0) # biker2 knows this terrain and can bike this distance
+      
+      # expect(@biker2.rides).to eq(@ride_2)
+      # #=> { #<Ride:0x00007fc62cb42ba8...> => [65.0] }
+      
+      # expect(@biker2.personal_record(@ride2)).to eq(65.0)
+      
+      # expect(@biker2.personal_record(@ride1)).to be false
     end
-    # @biker2.log_ride(@ride1, 97.0) #biker2 doesn't know this terrain yet
-    # @biker2.log_ride(@ride2, 67.0) #biker2 doesn't know this terrain yet
-    #     expect(@biker2.rides).to eq({})
-
-
-    # @biker2.learn_terrain!(:gravel)
-    # @biker2.learn_terrain!(:hills)
-    # @biker2.log_ride(ride1, 95.0) # biker2 can't bike this distance
-    # @biker2.log_ride(ride2, 65.0) # biker2 knows this terrain and can bike this distance
-    
-    # expect(@biker2.rides).to eq()
-    # #=> { #<Ride:0x00007fc62cb42ba8...> => [65.0] }
-    
-    # expect(@biker2.personal_record(@ride2)).to eq(65.0)
-    
-    # expect(@biker2.personal_record(@ride1)).to be false
 
   end
 end
