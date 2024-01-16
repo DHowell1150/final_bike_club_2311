@@ -19,5 +19,17 @@ class Biker
     @rides[rider] ||= []
     @rides[rider] << time
   end
-end
 
+  def personal_record(ride)
+    pr = nil
+    @rides[ride].each do |time|
+      pr = time if pr.nil? || time < pr
+    end
+    # @rides.each do |hash_ride, times|
+    #   times.max_by do |time|
+    #   pr = time
+    #   end
+    # end
+    pr
+  end
+end
