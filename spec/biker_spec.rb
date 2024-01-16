@@ -29,18 +29,19 @@ RSpec.describe Biker do
       expect(@biker.acceptable_terrain).to eq([:gravel, :hills])
     end
   end
+
+  describe 'log_ride' do
+    it 'logs the rides of each biker in a hash with biker as key and rides in an array.' do
+      @biker.log_ride(@ride1, 92.5)
+      @biker.log_ride(@ride1, 91.1)
+      @biker.log_ride(@ride2, 60.9)
+      @biker.log_ride(@ride2, 61.6)
+      
+      expect(@biker.rides).to eq({@ride1 => [92.5, 91.1], @ride2 => [60.9, 61.6]})
+    end
+  end
 end
 
-# @biker.log_ride(ride1, 92.5)
-# @biker.log_ride(ride1, 91.1)
-# @biker.log_ride(ride2, 60.9)
-# @biker.log_ride(ride2, 61.6)
-
-# expect(@biker.rides).to eq({@ride1, @ride2})
-# # => {
-# #      #<Ride:0x00007fc62ca32a10...> => [92.5, 91.1],
-# #      #<Ride:0x00007fc62cb42ba8...> => [60.9, 61.6]
-# #    }
 # expect(@biker.personal_record(@ride1)).to eq(91.1)
 # expect(@biker.personal_record(@ride2)).to eq(60.9)
 # expect(@biker2 = Biker.new("Athena", 15)).to eq(#<Biker:0x00007fc62cb399e0...>)
