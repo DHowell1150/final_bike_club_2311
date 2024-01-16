@@ -24,10 +24,13 @@ class Biker
   end
 
   def personal_record(ride)
+    return false unless @rides[ride]
     pr = nil
+    if @rides[ride]
     @rides[ride].each do |time|
       pr = time if pr.nil? || (time < pr || nil)
     end
+  end
     pr
   end
 
